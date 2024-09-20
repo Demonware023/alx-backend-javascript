@@ -1,21 +1,20 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const sendPaymentRequestToApi = require('./4-payment');
+const sendPaymentRequestToApi = require('./3-payment');
 const Utils = require('./utils');
 
-describe('Stubs', function () {
+describe('Spies', function () {
   it('has the same math', () => {
-    const stubUtils = sinon.stub(Utils, 'calculateNumber');
-    stubUtils.returns(10);
+    const spyUtils = sinon.spy(Utils, 'calculateNumber');
     const spyConsole = sinon.spy(console, 'log');
 
     sendPaymentRequestToApi(100, 20);
 
-    expect(stubUtils.calledOnceWithExactly('SUM', 100, 20)).to.be.true;
-    expect(spyConsole.calledOnceWithExactly('The total is: 10')).to.be.true;
+    expect(spyUtils.calledOnceWithExactly('SUM', 100, 20)).to.be.true;
+    expect(spyConsole.calledOnceWithExactly('The total is: 120')).to.be.true;
 
-    stubUtils.restore();
+    spyUtils.restore();
     spyConsole.restore();
   });
 });
